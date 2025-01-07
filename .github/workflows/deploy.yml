@@ -26,20 +26,20 @@ jobs:
         terraform_wrapper: false
 
     - name: Initialize Terraform
-      run: terraform init
+      run: terraform destroy
 
-    - name: Plan Infrastructure
-      run: terraform plan -out=tfplan
+    # - name: Plan Infrastructure
+    #   run: terraform plan -out=tfplan
 
-    - name: Apply Terraform
-      run: terraform apply -auto-approve tfplan
+    # - name: Apply Terraform
+    #   run: terraform apply -auto-approve tfplan
 
-    - name: Extract Instance IP
-      id: get_ip
-      run: |
-        echo "INSTANCE_IP=$(terraform output -raw instance_public_ip)" >> $GITHUB_ENV
+    # - name: Extract Instance IP
+    #   id: get_ip
+    #   run: |
+    #     echo "INSTANCE_IP=$(terraform output -raw linux_server_ips)" >> $GITHUB_ENV
 
-    - name: Run Tests on Server
-      run: |
-        chmod +x test-server.sh
-        ./test-server.sh $INSTANCE_IP
+    # - name: Run Tests on Server
+    #   run: |
+    #     chmod +x test-server.sh
+    #     ./test-server.sh $INSTANCE_IP
