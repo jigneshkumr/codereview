@@ -90,6 +90,10 @@ output "linux_server_ips" {
   value = aws_instance.linux_servers[*].public_ip
 }
 
+output "linux_instance_id" {
+  value = aws_instance.linux_servers[*].ID
+}
+
 # output "windows_server_ips" {
 #   value = aws_instance.windows_servers[*].public_ip
 # }
