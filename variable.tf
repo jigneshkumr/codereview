@@ -27,13 +27,13 @@ variable "linux_ami_configs" {
     user_data_script = string
   }))
   default = [
-    { name = "ubuntu22", ami_id = "ami-09b0a86a2c84101e1", user_data_script = "ubuntu.sh" },
-    { name = "ubuntu24", ami_id = "ami-053b12d3152c0cc71", user_data_script = "ubuntu.sh" },
-    { name = "centos8", ami_id = "ami-001a304f6307735d7", user_data_script = "centos.sh" },
-    { name = "centos9", ami_id = "ami-0017796981adef557", user_data_script = "centos.sh" },
-    { name = "debian10", ami_id = "ami-005edfef3ce3aa37a", user_data_script = "ubuntu.sh" },
-    #{ name = "debian11", ami_id = "ami-00970149b812c5a3e", user_data_script = "ubuntu.sh" },
-    { name = "debian12", ami_id = "ami-03c68e52484d7488f", user_data_script = "ubuntu.sh" },
+    # { name = "ubuntu22", ami_id = "ami-09b0a86a2c84101e1", user_data_script = "ubuntu.sh" },
+     { name = "ubuntu24", ami_id = "ami-053b12d3152c0cc71", user_data_script = "ubuntu.sh" },
+    # { name = "centos8", ami_id = "ami-001a304f6307735d7", user_data_script = "centos.sh" },
+    # { name = "centos9", ami_id = "ami-0017796981adef557", user_data_script = "centos.sh" },
+    # { name = "debian10", ami_id = "ami-005edfef3ce3aa37a", user_data_script = "ubuntu.sh" },
+    # #{ name = "debian11", ami_id = "ami-00970149b812c5a3e", user_data_script = "ubuntu.sh" },
+    # { name = "debian12", ami_id = "ami-03c68e52484d7488f", user_data_script = "ubuntu.sh" },
   ]
 }
 

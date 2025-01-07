@@ -61,35 +61,35 @@ resource "cloudflare_record" "linux_dns_records" {
 }
 
 # Windows instances
-resource "aws_instance" "windows_servers" {
-  count           = length(var.windows_ami_configs)
-  ami             = var.windows_ami_configs[count.index].ami_id
-  instance_type   = var.windows_instance_type
-  key_name        = var.key_name
-  security_groups = [aws_security_group.JigneshSG.name]
-  user_data = templatefile("${path.module}/user_data/windows.ps1", {
-    server_name = var.windows_ami_configs[count.index].name
-    domain_name = var.domain_name
-  })
+# resource "aws_instance" "windows_servers" {
+#   count           = length(var.windows_ami_configs)
+#   ami             = var.windows_ami_configs[count.index].ami_id
+#   instance_type   = var.windows_instance_type
+#   key_name        = var.key_name
+#   security_groups = [aws_security_group.JigneshSG.name]
+#   user_data = templatefile("${path.module}/user_data/windows.ps1", {
+#     server_name = var.windows_ami_configs[count.index].name
+#     domain_name = var.domain_name
+#   })
 
-  tags = {
-    Name = "WindowsServer-${var.windows_ami_configs[count.index].name}"
-  }
-}
+#   tags = {
+#     Name = "WindowsServer-${var.windows_ami_configs[count.index].name}"
+#   }
+# }
 
-resource "cloudflare_record" "windows_dns_records" {
-  count   = length(var.windows_ami_configs)
-  zone_id = var.cloudflare_zone_id
-  name    = "${var.windows_ami_configs[count.index].name}.${var.domain_name}"
-  type    = "A"
-  content   = aws_instance.windows_servers[count.index].public_ip
-  ttl     = 3600
-}
+# resource "cloudflare_record" "windows_dns_records" {
+#   count   = length(var.windows_ami_configs)
+#   zone_id = var.cloudflare_zone_id
+#   name    = "${var.windows_ami_configs[count.index].name}.${var.domain_name}"
+#   type    = "A"
+#   content   = aws_instance.windows_servers[count.index].public_ip
+#   ttl     = 3600
+# }
 
 output "linux_server_ips" {
   value = aws_instance.linux_servers[*].public_ip
 }
 
-output "windows_server_ips" {
-  value = aws_instance.windows_servers[*].public_ip
-}
+# output "windows_server_ips" {
+#   value = aws_instance.windows_servers[*].public_ip
+# }
