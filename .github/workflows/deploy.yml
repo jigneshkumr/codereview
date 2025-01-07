@@ -40,6 +40,20 @@ jobs:
             INSTANCE_IPS=$(terraform output -json linux_server_ips | jq -r '.[]')
             echo "INSTANCE_IPS=$INSTANCE_IPS" >> $GITHUB_ENV
 
+    - name: Wait for Instance to Reach Running State
+      run: |
+        INSTANCE_ID=$(terraform output -json linux_instance_id | jq -r '.')
+        while true; do
+          STATE=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query 'Reservations[0].Instances[0].State.Name' --output text)
+          echo "Current state: $STATE"
+          if [ "$STATE" = "running" ]; then
+            echo "Instance is running!"
+            break
+          fi
+          echo "Waiting for the instance to reach 'running' state..."
+          sleep 10
+        done
+
     - name: Run Tests on Server
       run: |
             echo "INSTANCE_IPS"
