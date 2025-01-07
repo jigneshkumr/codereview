@@ -34,12 +34,15 @@ jobs:
     - name: Apply Terraform
       run: terraform apply -auto-approve tfplan
 
-    - name: Extract Instance IP
-      id: get_ip
+    - name: Extract Instance IPs
+      id: get_ips
       run: |
-        echo "INSTANCE_IP=$(terraform output -raw linux_server_ips)" >> $GITHUB_ENV
+            INSTANCE_IPS=$(terraform output -json linux_server_ips | jq -r '.[]')
+            echo "INSTANCE_IPS=$INSTANCE_IPS" >> $GITHUB_ENV
 
-    - name: Run Tests on Server
+    - name: Run Tests on All Servers
       run: |
         chmod +x test-server.sh
-        ./test-server.sh $INSTANCE_IP
+        for IP in $INSTANCE_IPS; do
+          ./test-server.sh $IP
+        done
