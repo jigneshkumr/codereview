@@ -40,9 +40,15 @@ jobs:
             INSTANCE_IPS=$(terraform output -json linux_server_ips | jq -r '.[]')
             echo "INSTANCE_IPS=$INSTANCE_IPS" >> $GITHUB_ENV
 
-    - name: Run Tests on All Servers
+    - name: Run Tests on Server
       run: |
-        chmod +x test-server.sh
-        for IP in $INSTANCE_IPS; do
-          ./test-server.sh $IP
-        done
+            chmod 600 ais2025.ppk
+            ssh -o StrictHostKeyChecking=no -i ais2025.ppk ubuntu@${{ env.INSTANCE_IP }} 'bash -s' < test-server.sh
+
+
+    # - name: Run Tests on All Servers
+    #  run: |
+    #      chmod +x test-server.sh
+    #     for IP in $INSTANCE_IPS; do
+    #       ./test-server.sh $IP
+    #     done
