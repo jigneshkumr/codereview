@@ -57,11 +57,12 @@ jobs:
     - name: Run Tests on Server
       run: |
         chmod +x test-server.sh
-        echo "INSTANCE_IPS=$INSTANCE_IPS"
         chmod 600 AIS-Jignesh.pem
-        ssh -o StrictHostKeyChecking=no -i AIS-Jignesh.pem ubuntu@$INSTANCE_IPS 'bash -s' < test-server.sh
+        echo "Running script with server IP: $INSTANCE_IPS"
+        ssh -o StrictHostKeyChecking=no -i AIS-Jignesh.pem ubuntu@$INSTANCE_IPS 'bash -s' < test-server.sh $INSTANCE_IPS
       env:
         INSTANCE_IPS: ${{ env.INSTANCE_IPS }}
+
 
 
 
