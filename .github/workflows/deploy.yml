@@ -26,7 +26,10 @@ jobs:
         terraform_wrapper: false
 
     - name: Initialize Terraform
-      run: terraform destroy
+      run: |
+            rm terraform.lock.hcl
+            terraform init
+            terraform destroy
 
     # - name: Plan Infrastructure
     #   run: terraform plan -out=tfplan
