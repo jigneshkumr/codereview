@@ -43,8 +43,8 @@ jobs:
     - name: Run Tests on Server
       run: |
             echo "INSTANCE_IPS"
-            chmod 600 Automation-Key.ppk
-            ssh -o StrictHostKeyChecking=no -i Automation-Key.ppk ubuntu@$INSTANCE_IPS 'bash -s' < test-server.sh
+            chmod 600 AIS-Jignesh.pem
+            ssh -o StrictHostKeyChecking=no -i AIS-Jignesh.pem ubuntu@$INSTANCE_IPS 'bash -s' < test-server.sh
 
 
     # - name: Run Tests on All Servers

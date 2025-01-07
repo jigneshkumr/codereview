@@ -2,7 +2,7 @@ aws_region           = "ap-south-1"
 cloudflare_api_token = "C2jTRRJ4zOdAk3B81wVpJ6OWzPj5wse3Xk7-bz0_"
 cloudflare_zone_id   = "522656050d919f960bf8e602ffb557f0"
 domain_name          = "cypanel.com"
-key_name             = "Automation-Key"
+key_name             = "AIS-Jignesh"
 security_group       = "sg-035534d2713d97184"
 
 # linux_ami_configs = [
