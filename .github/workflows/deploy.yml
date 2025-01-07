@@ -1,0 +1,38 @@
+name: Deploy and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_wrapper: false
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Plan Infrastructure
+      run: terraform plan -out=tfplan
+
+    - name: Apply Terraform
+      run: terraform apply -auto-approve tfplan
+
+    - name: Extract Instance IP
+      id: get_ip
+      run: |
+        echo "INSTANCE_IP=$(terraform output -raw instance_public_ip)" >> $GITHUB_ENV
+
+    - name: Run Tests on Server
+      run: |
+        chmod +x test-server.sh
+        ./test-server.sh $INSTANCE_IP
