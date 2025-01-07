@@ -91,7 +91,7 @@ output "linux_server_ips" {
 }
 
 output "linux_instance_id" {
-  value = aws_instance.linux_servers[*].ID
+  value = aws_instance.linux_servers[*].id
 }
 
 # output "windows_server_ips" {
